@@ -19,7 +19,7 @@ from utils.eval_tool import eval_detection_voc
 import resource
 
 rlimit = resource.getrlimit(resource.RLIMIT_NOFILE)
-resource.setrlimit(resource.RLIMIT_NOFILE, (20480, rlimit[1]))
+resource.setrlimit(resource.RLIMIT_NOFILE, (2048, rlimit[1]))
 
 matplotlib.use('agg')
 
