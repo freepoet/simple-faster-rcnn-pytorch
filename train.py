@@ -24,7 +24,7 @@ resource.setrlimit(resource.RLIMIT_NOFILE, (2048, rlimit[1]))
 matplotlib.use('agg')
 
 
-def eval(dataloader, faster_rcnn, test_num=10000):
+def eval(dataloader, faster_rcnn, test_num=10000):            #验证阶段
     pred_bboxes, pred_labels, pred_scores = list(), list(), list()
     gt_bboxes, gt_labels, gt_difficults = list(), list(), list()
     for ii, (imgs, sizes, gt_bboxes_, gt_labels_, gt_difficults_) in tqdm(enumerate(dataloader)):
@@ -76,6 +76,8 @@ def train(**kwargs):
         for ii, (img, bbox_, label_, scale) in tqdm(enumerate(dataloader)):
             scale = at.scalar(scale)
             img, bbox, label = img.cuda().float(), bbox_.cuda(), label_.cuda()
+            #img.shape=1*3*600*800 bbox.shape=1*2*4(1代表一张图片 batchsize=1，2代表图片中两个目标   label.shape 1*2  scale=1.6
+            
             trainer.train_step(img, bbox, label, scale)
 
             if (ii + 1) % opt.plot_every == 0:
